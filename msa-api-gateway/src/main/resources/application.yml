@@ -1,0 +1,25 @@
+server:
+  port: 8090
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: msa-api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: msa-user-api
+          uri: http://localhost:8000
+          predicates:
+            - Path=/user/**
+        - id: msa-news-api
+          uri: http://localhost:8005
+          predicates:
+            - Path=/news/**
