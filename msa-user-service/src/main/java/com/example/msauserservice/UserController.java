@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @RequestMapping("/user/test")
+    @RequestMapping("/")
     public String getUser() {
-        System.out.println("AAAAAAAAAAAAAAAAAA");
         return "user Information";
     }
 }

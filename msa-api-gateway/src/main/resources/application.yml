@@ -6,20 +6,27 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+security:
+  oauth2:
+    client:
+      client-id: auth_id
+      client-secret: auth_secret
+    resource:
+      jwt:
+        key-value: jwt_secret_key
+
 spring:
   application:
     name: msa-api-gateway
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-        - id: msa-user-api
-          uri: http://localhost:8000
-          predicates:
-            - Path=/user/**
-        - id: msa-news-api
-          uri: http://localhost:8005
-          predicates:
-            - Path=/news/**
+
+zuul:
+  routes:
+    msa-user-service:
+      path: /api/user/**
+    msa-news-service:
+      path: /api/news/**
+    msa-review-service:
+      path: /api/review/**
+    msa-advertising-service:
+      path: /api/advertising/**
+  sensitiveHeaders: Cookie,Set-Cookie
