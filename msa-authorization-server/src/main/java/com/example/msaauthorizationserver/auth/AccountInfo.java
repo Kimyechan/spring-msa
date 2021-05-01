@@ -16,11 +16,11 @@ public class AccountInfo extends User {
     private Account account;
 
     public AccountInfo(Account account) {
-        super(account.getEmail(), account.getPassword(), authoities(account.getRoles()));
+        super(String.valueOf(account.getId()), account.getPassword(), authorities(account.getRoles()));
         this.account = account;
     }
 
-    private static Collection<? extends GrantedAuthority> authoities(Set<Role> roles) {
+    private static Collection<? extends GrantedAuthority> authorities(Set<Role> roles) {
         return roles.stream()
                 .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
                 .collect(Collectors.toList());
